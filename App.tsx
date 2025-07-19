@@ -4,12 +4,12 @@ import { Header } from './components/Header';
 import { PromptGeneratorForm } from './components/PromptGeneratorForm';
 import { PromptDisplay } from './components/PromptDisplay';
 import { generateCreativePrompt } from './services/geminiService';
-import type { PromptRequest } from './types';
+import type { PromptRequest, GeneratedPrompt } from './types';
 
 const App: React.FC = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
-    const [generatedPrompt, setGeneratedPrompt] = useState<string>('');
+    const [generatedPrompt, setGeneratedPrompt] = useState<GeneratedPrompt>('');
 
     const handleGeneratePrompt = useCallback(async (request: PromptRequest) => {
         setIsLoading(true);
@@ -18,7 +18,7 @@ const App: React.FC = () => {
 
         try {
             const prompt = await generateCreativePrompt(request);
-            if (prompt.startsWith('Error:')) {
+            if (typeof prompt === 'string' && prompt.startsWith('Error:')) {
                 setError(prompt);
             } else {
                 setGeneratedPrompt(prompt);

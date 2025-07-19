@@ -27,3 +27,14 @@ export interface PromptRequest {
   complexity: Complexity;
   promptFormat: PromptFormat;
 }
+
+export interface AppCreationPrompt {
+  problema: string;
+  usuariosAfectados: string;
+  solucionPropuesta: string;
+  funcionalidadesClave: string[];
+  beneficiosEsperados: string;
+  impactoPotencial: string;
+}
+
+export type GeneratedPrompt = string | AppCreationPrompt;
